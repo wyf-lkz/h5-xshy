@@ -87,6 +87,7 @@
             width:document.body.clientWidth,
             height:document.body.clientHeight
           }
+          const audio = new Audio('./asset/sfx/按钮.aac');
           $('#pic-bg').css({
             'position':'absolute',  
             'width':size.width*1336/1280+'px',
@@ -116,10 +117,12 @@
          })
          var light=0;//默认背景是亮的，1为暗
         $('#info-book1').on('click',function(){
+            audio.play();
             $('#book1-info').toggle();
             if(light==0){$('.bookshowpage').addClass('black-bg');light=1;}
          })
          $('#book1-info').on('click',function(){
+            audio.play();
             $('#book1-info').toggle();
             light=0;
             $('.bookshowpage').removeClass('black-bg');

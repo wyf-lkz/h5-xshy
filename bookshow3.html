@@ -75,6 +75,7 @@
             width:document.body.clientWidth,
             height:document.body.clientHeight
           }
+          const audio = new Audio('./asset/sfx/按钮.aac');
           $('#pic-bg').css({
             'position':'absolute',  
             'width':size.width*1336/1280+'px',
@@ -100,10 +101,12 @@
 
 
          $('#info-book3').on('click',function(){
+            audio.play()
             $('#book3-info').toggle();
             if(light==0){$('.bookshowpage').addClass('black-bg');light=1;}
          })
          $('#book3-info').on('click',function(){
+            audio.play()
             $('#book3-info').toggle();
             light=0;
             $('.bookshowpage').removeClass('black-bg');

@@ -32,8 +32,13 @@
       animation: titleMove 2.5s ease-in-out 1;
     }
     .homepage .button-click{
-      animation: titleMove 3s ease-in-out 1;
       z-index: 999;
+    }
+    .title-move{
+      animation: titleMove 3s ease-in-out 1;
+    }
+    .breathe{
+      animation: breathe 2s  ease-in-out infinite;
     }
     #start-video{
       position: absolute;
@@ -69,6 +74,20 @@
         opacity: 1;
       }
     }
+    @keyframes breathe {
+      0%{
+        transform: scale(1);
+        opacity: 1;
+      }
+      50%{
+        transform: scale(1.05);
+        opacity: 0.7;
+      }
+      100%{
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -78,7 +97,7 @@
     <img id="pic-maple" src="./asset/img/maple.gif">
     <img id="pic-title" src="./asset/img/pic-title.png">
     <img id="pic-subtitle" src="./asset/img/pic-subtitle.png">
-    <img class="button-click" src="./asset/img/btn-start.png">
+    <img class="button-click" src="./asset/img/btn-start.png" hidden="True">
     
   </div>
   <video id="start-video" src="./asset/video/开场视频.mp4" ></video>
@@ -88,6 +107,13 @@
       width:document.body.clientWidth,
       height:document.body.clientHeight
     }
+    const audio = new Audio('./asset/sfx/按钮.aac');
+    setTimeout(() => {
+      $('.button-click').fadeIn(500)
+    }, 700);
+    setTimeout(() => {
+      $('.button-click').addClass('breathe');
+    }, 1200);
     $('#pic-bg').css({
       'position':'absolute',
       'width':size.width*1280/1280+'px',
@@ -129,7 +155,11 @@
 
     $('.homepage .button-click').on('click',subPageStart)
     function subPageStart(){
+      audio.play();
+      setTimeout(() => {
         window.location.href = "./house.html";  
+      }, 500);
+        
     }
 
 
