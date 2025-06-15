@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书香红韵</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <!-- <link rel="stylesheet" href="./css/plane.css"> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="./js/plane.js"></script> -->
+  <style>
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-color: black;
+    }
+    #start-video {
+      position: absolute;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+    }
+
+  </style>
+</head>
+<body>
+  <video autoplay controls id="start-video" src="./asset/video/结算视频.mp4" ></video>
+<script>
+  $(document).ready(function() {
+    var size={
+      width:document.body.clientWidth,
+      height:document.body.clientHeight
+    }
+  })
+</script>
+
+</body>
+</html>
+
