@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘的房间</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        .housepage{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #pic-bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="housepage">
+      <img id="pic-bg" src="./asset/img/house-end.png">
+      <!-- <img id="pic-tablebook" src="./asset/img/pic-tablebook.png"> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          var size={
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+          }
+          $('#pic-bg').click(function(){
+            window.location.href='video.html'
+          })
+
+        })
+
+      </script>
+</body>
+</html>

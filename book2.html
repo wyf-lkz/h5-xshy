@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目前的形势和我们的任务</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        .select-game{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #pic-bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <img src="./asset/img/bg-book3.png" id="pic-bg" >
+    <div class="select-game">
+      <!-- 1个问题3个选项3个结果1个重新选择 -->
+      <div class="quiz" id="quiz1" >
+        <img src="./asset/img/book3-q1.png" class="problem" id="q1">
+        <img src="./asset/img/q1a.png" class="select-a" id="q1a">
+        <img src="./asset/img/q1b.png" class="select-b" id="q1b">
+        <img src="./asset/img/q1c.png" class="select-c" id="q1c">
+        <img src="./asset/img/q1ra.png" class="result" id="q1ra" style="display: none;">
+        <img src="./asset/img/q1rb.png" class="result-true" id="q1rb" style="display: none;">
+        <img src="./asset/img/q1rc.png" class="result" id="q1rc" style="display: none;">
+      </div>
+
+      <div class="quiz" id="quiz2" style="display: none;">
+        <img src="./asset/img/book3-q2.png" class="problem" id="q2">
+        <img src="./asset/img/q2a.png" class="select-a" id="q2a">
+        <img src="./asset/img/q2b.png" class="select-b" id="q2b">
+        <img src="./asset/img/q2c.png" class="select-c" id="q2c">
+        <img src="./asset/img/q2ra.png" class="result-true" id="q2ra" style="display: none;">
+        <img src="./asset/img/q2rb.png" class="result" id="q2rb" style="display: none;">
+        <img src="./asset/img/q2rc.png" class="result" id="q2rc" style="display: none;">
+      </div>
+
+      <div class="quiz" id="quiz3" style="display: none;">
+        <img src="./asset/img/book3-q3.png" class="problem" id="q3">
+        <img src="./asset/img/q3a.png" class="select-a" id="q3a">
+        <img src="./asset/img/q3b.png" class="select-b" id="q3b">
+        <img src="./asset/img/q3c.png" class="select-c" id="q3c">
+        <img src="./asset/img/q3ra.png" class="result" id="q3ra" style="display: none;">
+        <img src="./asset/img/q3rb.png" class="result" id="q3rb" style="display: none;">
+        <img src="./asset/img/q3rc.png" class="result-true" id="q3rc" style="display: none;">
+      </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          var size={
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+        }
+        $('.problem').css({
+            'position':'absolute',
+            'width':size.width*1285/1280+'px',
+            'height':size.height*994/2272+'px',
+            'left':size.width*-52/1280+'px',
+            'top':size.height*425/2272+'px',
+        })
+        $('.select-a').css({
+            'position':'absolute',
+            'width':size.width*997/1280+'px',
+            'height':size.height*81/2272+'px',
+            'left':size.width*148/1280+'px',
+            'top':size.height*1455/2272+'px',
+        })
+        $('.select-b').css({
+            'position':'absolute',
+            'width':size.width*997/1280+'px',
+            'height':size.height*81/2272+'px',
+            'left':size.width*148/1280+'px',
+            'top':size.height*1602/2272+'px',
+        })
+        $('.select-c').css({
+            'position':'absolute',
+            'width':size.width*997/1280+'px',
+            'height':size.height*81/2272+'px',
+            'left':size.width*148/1280+'px',
+            'top':size.height*1746/2272+'px',
+        })
+        $('.result').css({
+            'position':'absolute',
+            'width':size.width*1285/1280+'px',
+            'height':size.height*1267/2272+'px',
+            'left':size.width*-52/1280+'px',
+            'top':size.height*425/2272+'px',
+        })
+        $('.result-true').css({
+            'position':'absolute',
+            'width':size.width*1166/1280+'px',
+            'height':size.height*822/2272+'px',
+            'left':size.width*67/1280+'px',
+            'top':size.height*597/2272+'px',
+        })
+
+
+
+        // --------------------------------------------------------交互逻辑-----------------------------------------
+        $('#q1a').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q1').hide();
+            $('#q1a').hide();
+            $('#q1b').hide();
+            $('#q1c').hide();
+            $('#q1ra').show();
+            $('#q1rb').hide();
+            $('#q1rc').hide();
+
+        });
+        $('#q1b').click(function(){
+            audio=new Audio('./asset/sfx/情境选择成功.wav');
+            audio.play();
+            $('#q1').hide();
+            $('#q1a').hide();
+            $('#q1b').hide();
+            $('#q1c').hide();
+            $('#q1ra').hide();
+            $('#q1rb').show();
+            $('#q1rc').hide();
+        });
+        $('#q1c').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q1').hide();
+            $('#q1a').hide();
+            $('#q1b').hide();
+            $('#q1c').hide();
+            $('#q1ra').hide();
+            $('#q1rb').hide();
+            $('#q1rc').show();
+        });
+        $('#q2a').click(function(){
+            audio=new Audio('./asset/sfx/情境选择成功.wav');
+            audio.play();
+            $('#q2').hide();
+            $('#q2a').hide();
+            $('#q2b').hide();
+            $('#q2c').hide();
+            $('#q2ra').show();
+            $('#q2rb').hide();
+            $('#q2rc').hide();
+        });
+        $('#q2b').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q2').hide();
+            $('#q2a').hide();
+            $('#q2b').hide();
+            $('#q2c').hide();
+            $('#q2ra').hide();
+            $('#q2rb').show();
+            $('#q2rc').hide();
+        });
+        $('#q2c').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q2').hide();
+            $('#q2a').hide();
+            $('#q2b').hide();
+            $('#q2c').hide();
+            $('#q2ra').hide();
+            $('#q2rb').hide();
+            $('#q2rc').show();
+        });
+        $('#q3a').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q3').hide();
+            $('#q3a').hide();
+            $('#q3b').hide();
+            $('#q3c').hide();
+            $('#q3ra').show();
+            $('#q3rb').hide();
+            $('#q3rc').hide();
+        });
+        $('#q3b').click(function(){
+            audio=new Audio('./asset/sfx/情境选择错误.mp3');
+            audio.play();
+            $('#q3').hide();
+            $('#q3a').hide();
+            $('#q3b').hide();
+            $('#q3c').hide();
+            $('#q3ra').hide();
+            $('#q3rb').show();
+            $('#q3rc').hide();
+        });
+        $('#q3c').click(function(){
+            audio=new Audio('./asset/sfx/情境选择成功.wav');
+            audio.play();
+            $('#q3').hide();
+            $('#q3a').hide();
+            $('#q3b').hide();
+            $('#q3c').hide();
+            $('#q3ra').hide();
+            $('#q3rb').hide();
+            $('#q3rc').show();
+        });
+
+
+
+        // --------------------------------------------------------重新选择----------
+        $('#q1ra').click(function(){
+            $('#q1').show();
+            $('#q1a').show();
+            $('#q1b').show();
+            $('#q1c').show();
+            $('#q1ra').hide();
+            $('#q1rb').hide();
+            $('#q1rc').hide();
+        });
+        $('#q2ra').click(function(){
+            $('#quiz2').hide();
+            $('#quiz3').show()
+
+        });
+        $('#q3ra').click(function(){
+            $('#q3').show();
+            $('#q3a').show();
+            $('#q3b').show();
+            $('#q3c').show();
+            $('#q3ra').hide();
+            $('#q3rb').hide();
+            $('#q3rc').hide();
+        });
+        $('#q1rb').click(function(){
+            $('#quiz1').hide();
+            $('#quiz2').show()
+        });
+        $('#q2rb').click(function(){
+            $('#q2').show();
+            $('#q2a').show();
+            $('#q2b').show();
+            $('#q2c').show();
+            $('#q2ra').hide();
+            $('#q2rb').hide();
+            $('#q2rc').hide();
+        });
+        $('#q3rb').click(function(){
+            $('#q3').show();
+            $('#q3a').show();
+            $('#q3b').show();
+            $('#q3c').show();
+            $('#q3ra').hide();
+            $('#q3rb').hide();
+            $('#q3rc').hide();
+        });
+        $('#q1rc').click(function(){
+            $('#q1').show();
+            $('#q1a').show();
+            $('#q1b').show();
+            $('#q1c').show();
+            $('#q1ra').hide();
+            $('#q1rb').hide();
+            $('#q1rc').hide();
+        });
+        $('#q2rc').click(function(){
+            $('#q2').show();
+            $('#q2a').show();
+            $('#q2b').show();
+            $('#q2c').show();
+            $('#q2ra').hide();
+            $('#q2rb').hide();
+            $('#q2rc').hide();
+        });
+        $('#q3rc').click(function(){
+            $('#quiz3').hide();
+            window.location.href='./book2-end-success.html'
+        });
+      })
+
+    </script>
+</body>
+</html>

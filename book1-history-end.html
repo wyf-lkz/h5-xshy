@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book1-history-end</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        /* img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        } */
+        #startImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #amplifyPhoto {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 4;
+        }
+        /* #photoImage {
+
+            object-fit: cover;
+        } */
+    </style>
+</head>
+<body>
+    <img src="asset/img/book1-history-end.png" alt="book1-history-end" id="startImage" >
+    <img src="asset/img/book1-history-end-photo.png" alt="book1-history-end-photo" id="photoImage">
+    <img src="asset/img/book1-amplify-photo.png" alt="" id="amplifyPhoto" hidden="true">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        window.onload = function() {
+            var size={
+                width:document.body.clientWidth,
+                height:document.body.clientHeight
+          }
+          $('#photoImage').css({
+                'position':'absolute',  
+                'width':size.width*899/1280+'px',
+                'height':size.height*616/2272+'px',
+                'left':size.width*183/1280+'px',
+                'top':size.height*1288/2272+'px',
+                'z-index':'3'
+            })
+            setTimeout(function() {
+                // 获取图片元素
+                // var img = document.getElementById('body');
+                var body=document.getElementsByTagName('body')[0];
+                // 添加淡出效果
+                body.style.transition = 'opacity 1s ease-out';
+                body.style.opacity = '0';
+
+                // 设置一个短暂的延时，确保淡出效果完成后再跳转
+                setTimeout(function() {
+                    window.location.href = 'bookshow3.html';
+                }, 1000); // 1秒的延时，与CSS的过渡时间一致
+            }, 3000); // 5秒后执行
+            $('#photoImage').click(function() {
+                $('#amplifyPhoto').show();
+            });
+            $('#amplifyPhoto').click(function() {
+                $('#amplifyPhoto').hide();
+            });
+        };
+    </script>
+</body>
+</html>

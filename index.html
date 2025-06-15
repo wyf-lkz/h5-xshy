@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书香红韵</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <!-- <link rel="stylesheet" href="./css/plane.css"> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- 飞机游戏js -->
+  <!-- <script src="./js/plane.js"></script> -->
+  <style>
+    body, html {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-color: black;
+    }
+    .homepage{
+      position: absolute;
+      width: 105%;
+      height: 105%;
+      touch-action: none;
+    }
+    #pic-cloud{
+      animation: cloudMove 20s linear infinite;
+    }
+    #pic-title{
+      animation: titleMove 2s ease-in-out 1;
+    }
+    #pic-subtitle{
+      animation: titleMove 2.5s ease-in-out 1;
+    }
+    .homepage .button-click{
+      animation: titleMove 3s ease-in-out 1;
+      z-index: 999;
+    }
+    #start-video{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      overflow: hidden;
+      display: none;
+      touch-action: none;
+    }
+    #pic-maple{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 998;
+      mix-blend-mode: screen;
+    }
+    @keyframes cloudMove{
+      0%{
+        transform: translate3d(-40%, 0, 0);
+      }
+      100%{
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    @keyframes titleMove{
+      0%{
+        transform: translate3d(0, -20%, 0);
+        opacity: 0;
+      }
+      100%{
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="homepage">
+    <img id="pic-bg" src="./asset/img/pic-bg.png" style="touch-action: none;">
+    <img id="pic-cloud" src="./asset/img/pic-cloud.png">
+    <img id="pic-maple" src="./asset/img/maple.gif">
+    <img id="pic-title" src="./asset/img/pic-title.png">
+    <img id="pic-subtitle" src="./asset/img/pic-subtitle.png">
+    <img class="button-click" src="./asset/img/btn-start.png">
+    
+  </div>
+  <video id="start-video" src="./asset/video/开场视频.mp4" ></video>
+<script>
+  $(document).ready(function() {
+    var size={
+      width:document.body.clientWidth,
+      height:document.body.clientHeight
+    }
+    $('#pic-bg').css({
+      'position':'absolute',
+      'width':size.width*1280/1280+'px',
+      'height':size.height*2564/2272+'px',
+      'left':size.width*0/1280+'px',
+      'top':size.height*-213/2272+'px',
+    })
+    $('#pic-cloud').css({
+      'position':'absolute',
+      'width':size.width*3840/1280+'px',
+      'height':size.height*1683/2272+'px',
+      'left':size.width*0/1280+'px',
+      'top':size.height*-200/2272+'px',
+    })
+    $('#pic-title').css({
+      'position':'absolute',
+      'width':size.width*281/1280+'px',
+      'height':size.height*1113/2272+'px',
+      'left':size.width*484/1280+'px',
+      'top':size.height*223/2272+'px',
+    })
+    $('#pic-subtitle').css({
+      'position':'absolute',
+      'width':size.width*78/1280+'px',
+      'height':size.height*708/2272+'px',
+      'left':size.width*778/1280+'px',
+      'top':size.height*628/2272+'px',
+    })
+    $('.homepage .button-click').css({
+      'position':'absolute',
+      'width':size.width*409/1280+'px',
+      'height':size.height*120/2272+'px',
+      'left':size.width*451/1280+'px',
+      'top':size.height*1510/2272+'px',
+      'z-index':999,
+    })
+
+
+
+    $('.homepage .button-click').on('click',subPageStart)
+    function subPageStart(){
+        window.location.href = "./house.html";  
+    }
+
+
+
+
+
+  })
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘的房间</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        .housepage{
+            position: absolute;
+            width: 108%;
+            height: 108%;
+            transition: 0.6s ease-in-out;
+        }
+        #pic-tablebook{
+          animation: breathe 2s ease-in-out infinite alternate;
+        }
+        @keyframes breathe {
+          0% {
+            filter: brightness(1);
+          }
+          50% {
+            filter: brightness(0.5);
+          }
+          100% {
+            filter: brightness(1);
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="housepage">
+      <img id="pic-bg" src="./asset/img/bg-house.png">
+      <img id="pic-tablebook" src="./asset/img/pic-tablebook.png">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          var size={
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+          }
+          $('#pic-bg').css({
+            'position':'absolute',
+            'width':size.width*1536/1280+'px',
+            'height':size.height*2500/2272+'px',
+            'left':size.width*0/1280+'px',
+            'top':size.height*0/2272+'px',
+        })
+        $('#pic-tablebook').css({
+            'position':'absolute',
+            'width':size.width*359/1280+'px',
+            'height':size.height*242/2272+'px',
+            'left':size.width*652/1280+'px',
+            'top':size.height*1050/2272+'px',
+        })
+        $('#pic-tablebook').on('click',function(){
+          var lastTime = 0;
+          var scale = 1; // 初始缩放比例
+          var animateWalk = function(timestamp) {
+              if (timestamp - lastTime < 300) { // 控制动画频率，这里设置为每200毫秒更新一次
+                  requestAnimationFrame(animateWalk);
+                  return;
+              }
+              lastTime = timestamp;
+              var $bgElement = $('.housepage');
+              // 模拟视角逐渐放大的效果
+              scale += 0.01; // 每次递增0.001，可以根据需要调整这个值
+              if (scale > 1.2) { // 当缩放比例超过1.5时重置为1，以避免无限放大
+                $bgElement.fadeOut(2000)
+                setTimeout(function(){
+                    window.location.href='./bookshow1.html';
+                    scale=1;
+                  },2000)
+                
+              }
+              // 模拟上下晃动的效果
+              var offsetY = Math.random() * 10 - 5;
+              $bgElement.css({
+                  'transform': 'translateY(' + offsetY + 'px) scale(' + scale + ')'
+              });
+              requestAnimationFrame(animateWalk);
+          };
+          requestAnimationFrame(animateWalk);
+
+          
+        })
+
+
+
+
+
+
+        })
+      </script>
+</body>
+</html>

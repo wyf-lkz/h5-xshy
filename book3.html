@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论人民民主专政</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        .drag-game{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .pic-bg,.quiz{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .pic-bg{
+          z-index: 1;
+          touch-action: none;
+        }
+        .cover-block{
+          z-index: 2;
+        }
+        .letter-brick{
+          z-index: 3;
+        }
+
+        .button-click{
+            animation: breathe 2s ease-in-out infinite;
+        }
+        @keyframes breathe {
+          0% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        .flash-red{
+          opacity: 0.7;
+          background-color: rgb(209, 74, 74);
+          transition: opacity 0.5s,background-color 0.5s;
+        }
+        .flash-green{
+          opacity: 0.7;
+          background-color: rgb(77, 240, 104);
+          transition: opacity 0.5s,background-color 0.5s;
+        }
+        @keyframes swipe{
+          0%{
+            transform:translateY();
+            opacity: 1;
+          }
+          100%{
+            transform:translateY(-200%);
+            opacity: 0;
+          }
+        }
+        #hand_swipe{
+          position: absolute;
+          width: 10%;
+          height: 10%;
+          bottom: 5%;
+          left: 35%;
+          transform: rotate(-10deg);
+          animation: swipe forwards 1.5s ease-in-out ;
+          animation-iteration-count: 5;
+          /* transform: translate(-50%, -50%); */
+          z-index: 4;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="drag-game">
+      <img id="hand_swipe" src="./asset/img/手指滑动.png" alt="">
+      <div class="quiz" id="quiz1" >
+        <img class="pic-bg" id="pic-bg1" src="./asset/img/bg-book2-1.png">
+        <img class="cover-block" id="cb1-huli" src="./asset/img/cb互利.png">
+        <img class="cover-block" id="cb1-zhuquan" src="./asset/img/cb主权.png">
+        <img class="cover-block" id="cb1-pingdeng" src="./asset/img/cb平等.png">
+        <img class="letter-brick" data-dragend="huli" id="lb1-huli" src="./asset/img/lb互利.png">
+        <img class="letter-brick" data-dragend="heping" id="lb1-heping" src="./asset/img/lb和平.png">
+        <img class="letter-brick" data-dragend="pingdeng" id="lb1-pingdeng" src="./asset/img/lb平等.png">
+        <img class="letter-brick" data-dragend="huhui" id="lb1-huhui" src="./asset/img/lb互惠.png">
+        <img class="letter-brick" data-dragend="wanzheng" id="lb1-wanzheng" src="./asset/img/lb完整.png">
+        <img class="letter-brick" data-dragend="zhuquan" id="lb1-zhuquan" src="./asset/img/lb主权.png">
+      </div>
+
+      <div class="quiz" id="quiz2" style="display: none;">
+        <img class="pic-bg" id="pic-bg2" src="./asset/img/bg-book2-2.png">
+        <img class="cover-block" id="cb2-xiaozichan" src="./asset/img/cb小资产.png">
+        <img class="cover-block" id="cb2-gongren" src="./asset/img/cb工人.png">
+        <img class="cover-block" id="cb2-nongmin" src="./asset/img/cb农民.png">
+        <img class="letter-brick" data-dragend="gongren" id="lb2-gongren" src="./asset/img/lb工人.png">
+        <img class="letter-brick" data-dragend="dizhu" id="lb2-dizhu" src="./asset/img/lb地主.png">
+        <img class="letter-brick" data-dragend="nongmin" id="lb2-nongmin" src="./asset/img/lb农民.png">
+        <img class="letter-brick" data-dragend="xiaozichan" id="lb2-xiaozichan" src="./asset/img/lb小资产.png">
+        <img class="letter-brick" data-dragend="dazichan" id="lb2-dazichan" src="./asset/img/lb大资产.png">
+        <img class="letter-brick" data-dragend="waiguo" id="lb2-waiguo" src="./asset/img/lb外国.png">
+        <img class="letter-brick" data-dragend="minzu" id="lb2-minzu" src="./asset/img/lb民族.png">
+      </div>
+
+      <div class="quiz" id="quiz3" style="display: none;">
+        <img class="pic-bg" id="pic-bg3" src="./asset/img/bg-book2-3.png">
+        <img class="cover-block" id="cb3-shengli" src="./asset/img/cb胜利.png">
+        <img class="cover-block" id="cb3-shibai" src="./asset/img/cb失败.png">
+        <img class="cover-block" id="cb3-chedixing" src="./asset/img/cb彻底性.png">
+        <img class="cover-block" id="cb3-yuanjian" src="./asset/img/cb远见.png">
+        <img class="letter-brick" data-dragend="yuanjian" id="lb3-yuanjian" src="./asset/img/lb远见.png">
+        <img class="letter-brick" data-dragend="zhihui" id="lb3-zhihui" src="./asset/img/lb智慧.png">
+        <img class="letter-brick" data-dragend="ruanruoxing" id="lb3-ruanruoxing" src="./asset/img/lb软弱性.png">
+        <img class="letter-brick" data-dragend="chedixing" id="lb3-chedixing" src="./asset/img/lb彻底性.png">
+        <img class="letter-brick" data-dragend="shengli" id="lb3-shengli" src="./asset/img/lb胜利.png">
+        <img class="letter-brick" data-dragend="shibai" id="lb3-shibai" src="./asset/img/lb失败.png">
+      </div>
+        <!-- 遮挡块：根据其在图像中的位置从左往右，由上至下命名 -->
+        <!-- 字砖：根据字砖名字命名若有重复，则在后面加数字 -->
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      // -----------------------------------------------------这里是拖动结束的回调函数，基于自定义属性data-dragend--------------------------------------------------
+      //元素闪烁型
+      // function flashRed(element){
+      //   if(element){
+      //     element.classList.add('flash-red');setTimeout(function(){element.classList.remove('flash-red')},500)
+      //   }
+      // }
+      // function flashGreen(element){
+      //   if(element){
+      //     element.classList.add('flash-green');setTimeout(function(){element.classList.remove('flash-green')},500)
+      //   }
+      // }
+      //全屏闪烁型
+      function flashRed(){
+          document.body.classList.add('flash-red');setTimeout(function(){document.body.classList.remove('flash-red')},500)
+          audio=new Audio('./asset/sfx/错误音效.aac');
+          audio.play();
+      }
+      function flashGreen(){
+          document.body.classList.add('flash-green');setTimeout(function(){document.body.classList.remove('flash-green')},500)
+          audio=new Audio('./asset/sfx/正确音效.aac');
+          audio.play();
+      }
+      function checkCollision(targetElement=NaN,element){
+        if (!targetElement || !element) {
+          flashRed();
+          return false;
+        }
+        var targetElementRect = targetElement.getBoundingClientRect(); // 获取特定元素的位置和尺寸
+        var draggedElementRect = element.getBoundingClientRect();
+
+        // 检测碰撞的条件
+        var isCollisionX =Math.abs(draggedElementRect.left-targetElementRect.left) <targetElementRect.width/2 
+        var isCollisionY = Math.abs(draggedElementRect.top-targetElementRect.top) <targetElementRect.height/2
+
+        // 如果发生碰撞，则移除两个元素
+        if (isCollisionX && isCollisionY) {
+          flashGreen(element);
+          setTimeout(function(){
+            element.remove(); // 移除拖动的元素
+            targetElement.remove(); // 移除特定元素
+          },500)
+          console.log('碰撞');
+
+          return true;
+        }else{
+          flashRed(element);
+          return false;
+        }
+      }
+      
+      var q1_tag=0,q2_tag=0,q3_tag=0;
+      function check_q1(q1_tag){
+        if(q1_tag==3){
+          $('#quiz1').css({'display':'none'});
+          $('#quiz2').css({'display':'block'});
+      }
+      }
+      function check_q2(q2_tag){
+        if(q2_tag==3){
+        $('#quiz2').css('display','none');
+        $('#quiz3').css('display','block');
+      }
+      }
+
+      function check_q3(q3_tag){
+        if(q3_tag==4){
+        window.location.href='./book3-end-success.html';
+      }
+      }
+
+
+
+      window.huli=function(element,position){
+        var targetElement = document.querySelector('#cb1-huli');
+        if(checkCollision(targetElement,element)){q1_tag+=1;}
+        console.log(q1_tag);
+        check_q1(q1_tag);
+      }
+      window.pingdeng=function(element,position){
+        var targetElement = document.querySelector('#cb1-pingdeng');
+        if(checkCollision(targetElement,element)){q1_tag+=1;}
+        console.log(q1_tag);
+        check_q1(q1_tag);
+      }
+      window.zhuquan=function(element,position){
+        var targetElement = document.querySelector('#cb1-zhuquan');
+        if(checkCollision(targetElement,element)){q1_tag+=1;}
+        console.log(q1_tag);
+        check_q1(q1_tag);
+      }
+      window.heping=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.huhui=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.wanzheng=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+
+
+      window.xiaozichan=function(element,position){
+        var targetElement = document.querySelector('#cb2-xiaozichan');
+        if(checkCollision(targetElement,element)){q2_tag+=1;}
+        check_q2(q2_tag);
+      }
+      window.gongren=function(element,position){
+        var targetElement = document.querySelector('#cb2-gongren');
+        if(checkCollision(targetElement,element)){q2_tag+=1;}
+        check_q2(q2_tag);
+      }
+      window.nongmin=function(element,position){
+        var targetElement = document.querySelector('#cb2-nongmin');
+        if(checkCollision(targetElement,element)){q2_tag+=1;}
+        check_q2(q2_tag);
+      }
+      window.dizhu=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.dazichan=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.minzu=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.waiguo=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+
+
+
+
+      window.shengli=function(element,position){
+        var targetElement = document.querySelector('#cb3-shengli');
+        if(checkCollision(targetElement,element)){q3_tag+=1;}
+        check_q3(q3_tag);
+      }
+      window.shibai=function(element,position){
+        var targetElement = document.querySelector('#cb3-shibai');
+        if(checkCollision(targetElement,element)){q3_tag+=1;}
+        check_q3(q3_tag);
+      }
+      window.chedixing=function(element,position){
+        var targetElement = document.querySelector('#cb3-chedixing');
+        if(checkCollision(targetElement,element)){q3_tag+=1;}
+        check_q3(q3_tag);
+      }
+      window.yuanjian=function(element,position){
+        var targetElement = document.querySelector('#cb3-yuanjian');
+        if(checkCollision(targetElement,element)){q3_tag+=1;}
+        check_q3(q3_tag);
+      }
+      window.zhihui=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      window.ruanruoxing=function(element,position){
+        checkCollision(targetElement=NaN,element)
+      }
+      
+
+// ----------------------------------------------------------------------这里是拖动函数--------------------------------------------------
+        $('.letter-brick').addClass('dragable');
+
+
+      
+        function drag() {
+          // 获取所有拖拽元素
+          var dragpics = document.querySelectorAll('.dragable');
+
+          dragpics.forEach(function(dragpic) {
+            // 初始化变量
+            var isDragging = false;
+            var startPos = { x: 0, y: 0 };
+            var currentPos = { x: 0, y: 0 };
+            var onDragEndCallback = null; // 用于存储拖动结束时的回调函数
+
+
+
+            // 获取设置的回调函数名称，并将其转换为实际的函数引用
+            var callbackName = dragpic.getAttribute('data-dragend');
+            if (callbackName) {
+              onDragEndCallback = window[callbackName];
+              console.log(onDragEndCallback);
+            }
+
+            // 触摸开始事件
+            dragpic.addEventListener('touchstart', function(e) {
+              isDragging = true;
+              startPos.x = e.touches[0].clientX - currentPos.x;
+              startPos.y = e.touches[0].clientY - currentPos.y;
+            });
+
+            function changePos() {
+              dragpic.style.transform = "translate3d(" + currentPos.x + "px, " + currentPos.y + "px, 0)";
+            }
+
+            // 触摸移动事件
+            dragpic.addEventListener('touchmove', function(e) {
+              if (isDragging) {
+                e.preventDefault();
+                currentPos.x = e.touches[0].clientX - startPos.x;
+                currentPos.y = e.touches[0].clientY - startPos.y;
+                changePos();
+              }
+            });
+
+            // 触摸结束事件
+            dragpic.addEventListener('touchend', function() {
+              isDragging = false;
+              // console.log(onDragEndCallback);
+              if (onDragEndCallback && typeof onDragEndCallback === 'function') {
+                console.log('调用回调函数');
+                onDragEndCallback(dragpic, currentPos); // 调用回调函数，并传入当前元素和位置
+              }
+            });
+          });
+        }
+
+        // 调用函数以启用拖动
+        drag();
+
+
+
+    });
+
+// ----------------------------------------------------------------------这里是元素位置--------------------------------------------------
+
+      //从这里开始编写每个元素的位置
+      $(document).ready(function(){
+        var size={
+          width:document.body.clientWidth,
+          height:document.body.clientHeight
+      }
+        // 遮挡块
+        $('#cb1-huli').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*228/2272+'px',
+            'left':size.width*482/1280+'px',
+            'top':size.height*191/2272+'px',
+        })
+        $('#cb1-zhuquan').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*228/2272+'px',
+            'left':size.width*464/1280+'px',
+            'top':size.height*1202/2272+'px',
+        })
+        $('#cb1-pingdeng').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*228/2272+'px',
+            'left':size.width*654/1280+'px',
+            'top':size.height*1324/2272+'px',
+        })
+        $('#cb2-xiaozichan').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*368/2272+'px',
+            'left':size.width*476/1280+'px',
+            'top':size.height*659/2272+'px',
+        })
+        $('#cb2-gongren').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*288/2272+'px',
+            'left':size.width*660/1280+'px',
+            'top':size.height*640/2272+'px',
+        })
+        $('#cb2-nongmin').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*288/2272+'px',
+            'left':size.width*654/1280+'px',
+            'top':size.height*1268/2272+'px',
+        })
+        $('#cb3-shengli').css({
+            'position':'absolute',
+            'width':size.width*149/1280+'px',
+            'height':size.height*245/2272+'px',
+            'left':size.width*90/1280+'px',
+            'top':size.height*970/2272+'px',    
+        })
+        $('#cb3-shibai').css({
+            'position':'absolute',
+            'width':size.width*143/1280+'px',
+            'height':size.height*231/2272+'px',
+            'left':size.width*285/1280+'px',
+            'top':size.height*635/2272+'px',
+        })
+        $('#cb3-chedixing').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*336/2272+'px',
+            'left':size.width*655/1280+'px',
+            'top':size.height*530/2272+'px',
+        })
+        $('#cb3-yuanjian').css({
+            'position':'absolute',
+            'width':size.width*141/1280+'px',
+            'height':size.height*228/2272+'px',
+            'left':size.width*831/1280+'px',
+            'top':size.height*416/2272+'px',
+        })
+        // 字砖
+        $('#lb1-huli').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*449/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb1-heping').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*252/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb1-pingdeng').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*623/1280+'px',
+            'top':size.height*1294/2272+'px',
+        })
+        $('#lb1-huhui').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*646/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb1-wanzheng').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*842/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb1-zhuquan').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*1040/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb2-gongren').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*-23/1280+'px',
+            'top':size.height*1850/2272+'px',
+        })
+        $('#lb2-dizhu').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*163/1280+'px',
+            'top':size.height*1850/2272+'px',
+        })
+        $('#lb2-nongmin').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*349/1280+'px',
+            'top':size.height*1850/2272+'px',
+        })
+        $('#lb2-xiaozichan').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*458/2272+'px',
+            'left':size.width*536/1280+'px',
+            'top':size.height*1801/2272+'px',
+        })
+        $('#lb2-dazichan').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*458/2272+'px',
+            'left':size.width*721/1280+'px',
+            'top':size.height*1801/2272+'px',
+        })
+        $('#lb2-waiguo').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*908/1280+'px',
+            'top':size.height*1850/2272+'px',
+        })
+        $('#lb2-minzu').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*1095/1280+'px',
+            'top':size.height*1850/2272+'px',
+        })
+        $('#lb3-yuanjian').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*36/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb3-zhihui').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*252/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb3-ruanruoxing').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*443/2272+'px',
+            'left':size.width*449/1280+'px',
+            'top':size.height*1844/2272+'px',
+        })
+        $('#lb3-shengli').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*842/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb3-shibai').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*364/2272+'px',
+            'left':size.width*1040/1280+'px',
+            'top':size.height*1886/2272+'px',
+        })
+        $('#lb3-chedixing').css({
+            'position':'absolute',
+            'width':size.width*217/1280+'px',
+            'height':size.height*443/2272+'px',
+            'left':size.width*646/1280+'px',
+            'top':size.height*1844/2272+'px',
+        })
+
+
+      })
+    </script>
+</body>
+</html>

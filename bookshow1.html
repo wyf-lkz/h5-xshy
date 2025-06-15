@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书香指间</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        .bookshowpage{
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            overflow: hidden;
+        }
+        #carousel{
+            width: 300%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            z-index: 2;
+            transition: 0.5s ease-in-out;
+        }
+        #carousel li{
+            width: 33.3%;
+            height: 100%;          
+        }
+        #carousel li .book{
+            width: 100%;
+            height: 100%;
+        }
+        .info{
+            float: left;
+            margin-left: 58%;
+            margin-top: -73%;
+            transform: scale(0.45);
+            z-index: 5;
+        }
+        .book-info{
+            position: absolute;
+            float: left;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+        }
+        .black-bg{
+            filter: brightness(0.3);
+        }
+    </style>
+</head>
+<body>
+    <img src="./asset/img/book1-info.png" class="book-info" id="book1-info" style="display: none;">
+    <img src="./asset/img/book2-info.png" class="book-info" id="book2-info" style="display: none;">
+    <img src="./asset/img/book3-info.png" class="book-info" id="book3-info" style="display: none;">
+    <div class="bookshowpage">
+      <img id="pic-bg" src="./asset/img/bg-bookshow.png">
+      <img id="progress-bar1" src="./asset/img/progress-bar1.png">
+      <img id="collect-badge-1" class="badge" src="./asset/img/badge-1.png" style="display: none;">
+      <img id="collect-badge-2" class="badge" src="./asset/img/badge-2.png" style="display: none;">
+      <img id="collect-badge-3" class="badge" src="./asset/img/badge-3.png" style="display: none;">
+      
+      <ul id="carousel">
+        <li>
+            <img src="./asset/img/甲申三百年祭.png" id="pic-book1" class="book">
+            <img src="./asset/img/info.png" class="info" id="info-book1">
+        </li>
+        <li>
+            <img src="./asset/img/论人民民主专政.png" id="pic-book2" class="book">
+            <img src="./asset/img/info.png" class="info" id="info-book2">
+        </li>
+        <li>
+            <img src="./asset/img/目前形势和我们的任务.png" id="pic-book3" class="book">
+            <img src="./asset/img/info.png" class="info" id="info-book3">
+        </li>
+      </ul>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          var size={
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+          }
+          $('#pic-bg').css({
+            'position':'absolute',  
+            'width':size.width*1336/1280+'px',
+            'height':size.height*2372/2272+'px',
+            'left':size.width*-56/1280+'px',
+            'top':size.height*-50/2272+'px',
+            'z-index':'-1'
+         })
+         $('#progress-bar1').css({
+            'position':'absolute',  
+            'width':size.width*1121/1280+'px',
+            'height':size.height*241/2272+'px',
+            'left':size.width*86/1280+'px',
+            'top':size.height*1986/2272+'px',
+            'z-index':'2'
+         })
+         $('#collect-badge-1').css({
+            'position':'absolute',  
+            'width':size.width*84/1280+'px',
+            'height':size.height*108/2272+'px',
+            'left':size.width*461/1280+'px',
+            'top':size.height*2046/2272+'px',
+            'z-index':'2'
+         })
+         $('#pic-book1').on('click',function(){
+            window.location.href='./book1-history-start.html';
+         })
+         var light=0;//默认背景是亮的，1为暗
+        $('#info-book1').on('click',function(){
+            $('#book1-info').toggle();
+            if(light==0){$('.bookshowpage').addClass('black-bg');light=1;}
+         })
+         $('#book1-info').on('click',function(){
+            $('#book1-info').toggle();
+            light=0;
+            $('.bookshowpage').removeClass('black-bg');
+         })
+        })
+
+        
+      </script>
+</body>
+</html>

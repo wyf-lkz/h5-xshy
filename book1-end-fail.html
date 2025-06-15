@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成功或失败提示</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+        }
+        #bg {
+            width: 100%;
+            height: 100%;
+        }
+        #back-bookshow{
+            touch-action: none;
+            filter: brightness(0.5);
+        }
+    </style>
+</head>
+<body>
+    <img id="bg" src="./asset/img/book1-end-fail.png">
+    <img id="fight-again" src="./asset/img/fight-again.png">
+    <img id="back-bookshow" src="./asset/img/back-bookshow.png">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var size={
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+          }
+          $('#fight-again').css({
+            'position':'absolute',  
+            'width':size.width*400/1280+'px',
+            'height':size.height*137/2272+'px',
+            'left':size.width*194/1280+'px',
+            'top':size.height*1607/2272+'px',
+            'z-index':'3'
+         })
+         $('#back-bookshow').css({
+            'position':'absolute',  
+            'width':size.width*400/1280+'px',
+            'height':size.height*137/2272+'px',
+            'left':size.width*722/1280+'px',
+            'top':size.height*1607/2272+'px',
+            'z-index':'3'
+         })
+        $('#fight-again').click(function(){
+            window.location.href = "./book1-content.html";
+        })
+        $('#back-bookshow').click(function(){
+            window.location.href = "./bookshow.html";
+        })
+    </script>
+</body>
+</html>

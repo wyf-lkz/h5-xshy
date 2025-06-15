@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甲申三百年祭</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;    
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        #page1 {
+            display: block;
+        }
+        #pic-bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .button-click{
+            animation: breathe 2s ease-in-out infinite;
+        }
+        @keyframes breathe {
+          0% { opacity: 1; }
+          50% { opacity: 0.5; }
+          100% { opacity: 1; }
+        }
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            background:url(./asset/img/bg-plane.png)0 0 no-repeat;
+            background-size: cover;
+            overflow: hidden;
+            touch-action: none;
+        }
+        #player {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);     
+        }
+        .missile {
+            position: absolute;
+            top: 50px;
+            z-index: 2;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div id="page1" class="page">
+        <div class="bookpage">
+          <img id="pic-bg" src="./asset/img/bg-jiashen.png">
+          <img class="button-click" src="./asset/img/btn-自成善骑射.png">
+        </div>
+    </div>
+    
+    <div id="page2" class="page">
+        <div id="gameCanvas">
+            <img class="blood" id="blood1" src="./asset/img/blood.png" alt="">
+            <img class="blood" id="blood2" src="./asset/img/blood.png" alt="">
+            <img class="blood" id="blood3" src="./asset/img/blood.png" alt="">
+            <img id="word-score" src="./asset/img/score.png">
+            <span id="score">0</span>
+            <img id="player" src="./asset/img/李自成.png">
+            <img id="word-health" src="./asset/img/health.png">
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // 页面1的代码
+            var size = {
+                width: document.body.clientWidth,
+                height: document.body.clientHeight
+            };
+            
+            $('.button-click').css({
+                'position': 'absolute',
+                'width': size.width*181/1280+'px',
+                'height': size.height*541/2272+'px',
+                'left': size.width*970/1280+'px',
+                'top': size.height*223/2272+'px',
+            });
+            
+            $('.button-click').on('click', function() {
+                $('#page1').hide();
+                $('#page2').show();
+                initGame();
+            });
+            
+            // 页面2的游戏代码
+            function initGame() {
+                $('#word-health').css({
+                    position: 'absolute',
+                    'width': size.width*171/1280+'px',
+                    'height': size.height*70/2272+'px',
+                    'left': size.width*673/1280+'px',
+                    'top': size.height*111/2272+'px',
+                });
+                $('#word-score').css({
+                    position: 'absolute',
+                    'width': size.width*179/1280+'px',
+                    'height': size.height*68/2272+'px',
+                    'left': size.width*124/1280+'px',
+                    'top': size.height*113/2272+'px',
+                });
+                $('#score').css({
+                    position: 'absolute',
+                    'left': size.width*324/1280+'px',
+                    'top': size.height*123/2272+'px',
+                });
+                $('#blood1').css({
+                    position: 'absolute',
+                    'width': size.width*88/1280+'px',
+                    'height': size.height*80/2272+'px',
+                    'left': size.width*875/1280+'px',
+                    'top': size.height*109/2272+'px',
+                });
+                $('#blood2').css({
+                    position: 'absolute',
+                    'width': size.width*88/1280+'px',
+                    'height': size.height*80/2272+'px',
+                    'left': size.width*975/1280+'px',
+                    'top': size.height*109/2272+'px',
+                });
+                $('#blood3').css({
+                    position: 'absolute',
+                    'width': size.width*88/1280+'px',
+                    'height': size.height*80/2272+'px',
+                    'left': size.width*1075/1280+'px',
+                    'top': size.height*109/2272+'px',
+                });
+                
+                const canvas = $('#gameCanvas');
+                const player = $('#player');
+                player.css({
+                    position: 'absolute',
+                    'width': size.width*179/1280+'px',
+                    'height': size.height*348/2272+'px',
+                });
+
+                let missiles = [];
+                let score = 0;
+                let health = 3;
+                let missileCount = 0;
+                const audio_hitted = new Audio('./asset/sfx/hitted.aac');
+
+                const missilePositions = [canvas.width() * 0.05, canvas.width() * 0.15, canvas.width() * 0.3, canvas.width() * 0.45, canvas.width() * 0.6, canvas.width() * 0.75, canvas.width()*0.9];
+
+                function spawnMissile() {
+                    if (missileCount >= 100) return;
+
+                    const missile = $('<img class="missile" src="./asset/img/arrow.png"></img>"');
+
+                    missile.css({
+                        position: 'absolute',
+                        zIndex: 2,
+                        'width': size.width*44/1280+'px',
+                        'height': size.height*199/2272+'px',
+                    });
+                    const position = missilePositions[Math.floor(Math.random() * missilePositions.length)];
+                    missile.css({
+                        left: position - 10,
+                        top: '-50px'
+                    });
+                    canvas.append(missile);
+                    missiles.push(missile);
+                    missileCount++;
+
+                    missile.animate({
+                        top: canvas.height() + 50
+                    }, 3000, 'linear', function() {
+                        $(this).remove();
+                        const index = missiles.indexOf(missile);
+                        if (index > -1) {
+                            missiles.splice(index, 1);
+                        }
+                        missileCount--;
+                        score++;
+                        updateScore();
+                    });
+                }
+
+                function movePlayer(event) {
+                    let moveX;
+                    if (event.type === 'touchmove') {
+                        moveX = event.originalEvent.touches[0].clientX - canvas.offset().left - player.width() / 2;
+                    } else {
+                        moveX = event.keyCode === 37 ? player.position().left - 5 : player.position().left + 5;
+                    }
+
+                    const newLeft = Math.max(0, Math.min(moveX, canvas.width() - player.width()));
+                    player.css({'left': newLeft + 'px'});
+                }
+
+                function checkCollision() {
+                    missiles.forEach(missile => {
+                        const missileRect = missile[0].getBoundingClientRect();
+                        const playerRect = player[0].getBoundingClientRect();
+                        if (missileRect.left < playerRect.right && missileRect.right > playerRect.left &&
+                            missileRect.top < playerRect.bottom && missileRect.top + missileRect.height > playerRect.top) {
+                            health--;
+                            switch (health) {
+                                case 2: $('#blood3').hide(); break;
+                                case 1: $('#blood2').hide(); break;
+                                case 0: $('#blood1').hide();
+                            }
+                            missile.remove();
+                            
+                            const index = missiles.indexOf(missile);
+                            if (index > -1) {
+                                missiles.splice(index, 1);
+                            }
+                            missileCount--;
+                            audio_hitted.play();
+                            if (health <= 0) {
+                                window.location.href='./book1-end-fail.html';
+                            }
+                        }
+                    });
+                }
+
+                function updateScore() {
+                    $('#score').text(score);
+                    if(score >= 10) {
+                        window.location.href='./book1-end-success.html';
+                    }
+                }
+
+                function gameLoop() {
+                    spawnMissile();
+                    checkCollision();
+                    setTimeout(gameLoop, 150);
+                }
+
+                $(document).keydown(movePlayer);
+                $(document).on('touchmove', movePlayer);
+
+                gameLoop();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book1-history-start</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="asset/img/book1-history-start.png" alt="book1-history-start" id="startImage">
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                // 获取图片元素
+                var img = document.getElementById('startImage');
+                // 添加淡出效果
+                img.style.transition = 'opacity 1s ease-out';
+                img.style.opacity = '0';
+
+                // 设置一个短暂的延时，确保淡出效果完成后再跳转
+                setTimeout(function() {
+                    window.location.href = 'book1-content.html';
+                }, 1000); // 1秒的延时，与CSS的过渡时间一致
+            }, 3000); // 5秒后执行
+        };
+    </script>
+</body>
+
+</html>
